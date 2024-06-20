@@ -1,16 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from '../api/NptApi'
 
-export default function NptCategoryForm({onCloseForm, onCategorySubmit}) {
+export default function NptCategoryForm({onCloseForm, onCategorySubmit, renderNptCategory}) {
     //state
+    const [nptId,setNptId] = useState(0);
     const [nptCategoryName,setnptCategoryName] = useState("");
     const [nptCategoryStatus,setnptCategoryStatus] = useState(true);
 
+    useEffect(()=> {
+        setNptId(renderNptCategory.nptId);
+        setnptCategoryName(renderNptCategory.nptCategoryName);
+        setnptCategoryStatus(renderNptCategory.nptCategoryStatus);
+    });
     const nptHanldeClose = ()=>{
         onCloseForm(false);
     }
     const nptHandleSubmit = async (event)=>{
         event.preventDefault();
+        
+        if(nptId==0){
         let nptCategory ={
             nptId:0,
             nptCategoryName:nptCategoryName,
@@ -19,6 +27,13 @@ export default function NptCategoryForm({onCloseForm, onCategorySubmit}) {
         console.log("nptCategory",nptCategory);
         await axios.post("NptCategory",nptCategory);
         onCategorySubmit(nptCategory);
+    }else{
+        let nptCategory ={
+            nptId:0,
+            nptCategoryName:nptCategoryName,
+            nptCategoryStatus:nptCategoryStatus
+        }
+    }
     }
         return (
             <div>
