@@ -51,6 +51,7 @@ function NptApp() {
   return (
     <div className='container border m-3'>
       <h2>Nguyen Phong Tan - Call API</h2>
+      <h2>Tanami</h2>
       <hr/>
       <NptCategoryList renderNptCategories = {nptCategories}
           onAddNew={nptHandleAddNew}
